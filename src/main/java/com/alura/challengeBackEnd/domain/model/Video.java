@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Videos {
+public class Video {
 
     @Id
     private Long id;
@@ -12,10 +12,10 @@ public class Videos {
     private String descricao;
     private String url;
 
-    public Videos() {
+    public Video() {
     }
 
-    public Videos(Long id, String titulo, String descricao, String url) {
+    public Video(Long id, String titulo, String descricao, String url) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
