@@ -1,18 +1,45 @@
 package com.alura.challengeBackEnd.domain.model;
 
+import com.alura.challengeBackEnd.dto.VideoDTO;
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import java.util.Objects;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class Video {
 
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @NotBlank
     private String titulo;
+    @NotBlank
     private String descricao;
+    @NotBlank
+    @URL
     private String url;
 
     public Video() {
+    }
+
+    public Video(VideoDTO videoDTO) {
+        this.titulo = videoDTO.titulo();
+        this.descricao = videoDTO.descricao();
+        this.url = videoDTO.url();
+    }
+
+    public Video(String titulo, String descricao, String url) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.url = url;
     }
 
     public Video(Long id, String titulo, String descricao, String url) {
@@ -52,5 +79,18 @@ public class Video {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Video video = (Video) o;
+        return Objects.equals(id, video.id) && Objects.equals(titulo, video.titulo) && Objects.equals(descricao, video.descricao) && Objects.equals(url, video.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, titulo, descricao, url);
     }
 }

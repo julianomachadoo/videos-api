@@ -2,11 +2,13 @@ package com.alura.challengeBackEnd.service;
 
 import com.alura.challengeBackEnd.domain.model.Video;
 import com.alura.challengeBackEnd.domain.repository.VideosRepository;
+import com.alura.challengeBackEnd.dto.VideoDTO;
 import com.alura.challengeBackEnd.exception.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VideosService {
@@ -18,25 +20,26 @@ public class VideosService {
         this.videosRepository = videosRepository;
     }
 
-    public List<Video> getVideos() {
-        return videosRepository.findAll();
+    public List<VideoDTO> getVideos() {
+        return videosRepository.findAll()
+                .stream().map(VideoDTO::new).collect(Collectors.toList());
     }
 
-    public Video getVideosById(Long id) {
-        return videosRepository.findById(id)
+    public VideoDTO getVideosById(Long id) {
+        return videosRepository.findById(id).map(VideoDTO::new)
                 .orElseThrow(() -> new DataNotFoundException("Video não encontrado"));
     }
 
-    public Video postVideo(Video video) {
-        return videosRepository.save(video);
+    public VideoDTO postVideo(VideoDTO videoDTO) {
+        return new VideoDTO(videosRepository.save(new Video(videoDTO)));
     }
 
-    public Video atualizaVideo(Long id, Video videos) {
-        Video videoNovo = getVideosById(id);
-        videoNovo.setUrl(videos.getUrl());
-        videoNovo.setDescricao(videos.getDescricao());
-        videoNovo.setTitulo(videos.getTitulo());
-        return videosRepository.save(videoNovo);
+    public VideoDTO atualizaVideo(Long id, VideoDTO videoDTO) {
+        Video videoNovo = new Video(getVideosById(id));
+        videoNovo.setUrl(videoDTO.url());
+        videoNovo.setDescricao(videoDTO.descricao());
+        videoNovo.setTitulo(videoDTO.titulo());
+        return new VideoDTO(videosRepository.save(videoNovo));
     }
 
     public void deletaVideoPorId(Long id) {
