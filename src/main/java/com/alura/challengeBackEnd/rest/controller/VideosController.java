@@ -6,6 +6,7 @@ import com.alura.challengeBackEnd.service.VideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -31,13 +32,13 @@ public class VideosController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public VideoDTO postVideo (@RequestBody VideoDTO videoDTO) {
+    public VideoDTO postVideo (@RequestBody @Valid VideoDTO videoDTO) {
         return videosService.postVideo(videoDTO);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(OK)
-    public VideoDTO atualizaVideo (@PathVariable Long id, @RequestBody VideoDTO VideoDTO) {
+    public VideoDTO atualizaVideo (@PathVariable Long id, @RequestBody @Valid VideoDTO VideoDTO) {
         return videosService.atualizaVideo(id, VideoDTO);
     }
 

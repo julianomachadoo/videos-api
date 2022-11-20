@@ -8,13 +8,10 @@ import javax.validation.constraints.NotNull;
 public record VideoDTO (
         @NotNull
         Long id,
-
         @NotBlank
         String titulo,
-
         @NotBlank
         String descricao,
-
         @NotBlank
         String url
 ){
