@@ -35,11 +35,11 @@ public class VideosService {
     }
 
     public VideoDTO atualizaVideo(Long id, VideoDTO videoDTO) {
-        Video videoNovo = new Video(getVideosById(id));
-        videoNovo.setUrl(videoDTO.url());
-        videoNovo.setDescricao(videoDTO.descricao());
-        videoNovo.setTitulo(videoDTO.titulo());
-        return new VideoDTO(videosRepository.save(videoNovo));
+        Video video = videosRepository.getReferenceById(id);
+        if (videoDTO.url() != null) video.setUrl(videoDTO.url());
+        if (videoDTO.descricao() != null) video.setDescricao(videoDTO.descricao());
+        if (videoDTO.titulo() != null) video.setTitulo(videoDTO.titulo());
+        return new VideoDTO(video);
     }
 
     public void deletaVideoPorId(Long id) {

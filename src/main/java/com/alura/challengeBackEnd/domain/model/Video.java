@@ -35,19 +35,6 @@ public class Video {
         this.url = videoDTO.url();
     }
 
-    public Video(String titulo, String descricao, String url) {
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.url = url;
-    }
-
-    public Video(Long id, String titulo, String descricao, String url) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.url = url;
-    }
-
     public Long getId() {
         return id;
     }

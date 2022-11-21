@@ -3,6 +3,7 @@ package com.alura.challengeBackEnd.rest.controller;
 import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import com.alura.challengeBackEnd.service.VideosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,18 +32,21 @@ public class VideosController {
 
     @PostMapping
     @ResponseStatus(CREATED)
+    @Transactional
     public VideoDTO postVideo (@RequestBody @Valid VideoDTO videoDTO) {
         return videosService.postVideo(videoDTO);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(OK)
-    public VideoDTO atualizaVideo (@PathVariable Long id, @RequestBody @Valid VideoDTO VideoDTO) {
+    @Transactional
+    public VideoDTO atualizaVideo (@PathVariable Long id, @RequestBody VideoDTO VideoDTO) {
         return videosService.atualizaVideo(id, VideoDTO);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
+    @Transactional
     public void deletaVideoPorId (@PathVariable Long id) {
         videosService.deletaVideoPorId(id);
     }
