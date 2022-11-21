@@ -1,12 +1,10 @@
-package com.alura.challengeBackEnd.dto;
+package com.alura.challengeBackEnd.rest.dto;
 
 import com.alura.challengeBackEnd.domain.model.Video;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public record VideoDTO (
-        @NotNull
         Long id,
         @NotBlank
         String titulo,

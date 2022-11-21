@@ -1,13 +1,12 @@
 package com.alura.challengeBackEnd.domain.model;
 
-import com.alura.challengeBackEnd.dto.VideoDTO;
+import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import java.util.Objects;
 

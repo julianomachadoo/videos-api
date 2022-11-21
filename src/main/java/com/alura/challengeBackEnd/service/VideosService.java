@@ -2,7 +2,7 @@ package com.alura.challengeBackEnd.service;
 
 import com.alura.challengeBackEnd.domain.model.Video;
 import com.alura.challengeBackEnd.domain.repository.VideosRepository;
-import com.alura.challengeBackEnd.dto.VideoDTO;
+import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import com.alura.challengeBackEnd.exception.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

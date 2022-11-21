@@ -1,7 +1,6 @@
 package com.alura.challengeBackEnd.rest.controller;
 
-import com.alura.challengeBackEnd.domain.model.Video;
-import com.alura.challengeBackEnd.dto.VideoDTO;
+import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import com.alura.challengeBackEnd.service.VideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
