@@ -21,7 +21,7 @@ public class VideosService {
     }
 
     public List<VideoDTO> getVideos() {
-        return videosRepository.findAll()
+        return videosRepository.findAllByAtivoTrue()
                 .stream().map(VideoDTO::new).collect(Collectors.toList());
     }
 
@@ -43,7 +43,7 @@ public class VideosService {
     }
 
     public void deletaVideoPorId(Long id) {
-        getVideosById(id);
-        videosRepository.deleteById(id);
+        Video video = videosRepository.getReferenceById(id);
+        video.setAtivo(false);
     }
 }

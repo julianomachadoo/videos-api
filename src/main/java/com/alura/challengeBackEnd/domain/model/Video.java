@@ -26,10 +26,13 @@ public class Video {
     @URL
     private String url;
 
+    private Boolean ativo;
+
     public Video() {
     }
 
     public Video(VideoDTO videoDTO) {
+        this.ativo = true;
         this.titulo = videoDTO.titulo();
         this.descricao = videoDTO.descricao();
         this.url = videoDTO.url();
@@ -65,6 +68,14 @@ public class Video {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
