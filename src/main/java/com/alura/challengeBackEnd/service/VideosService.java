@@ -7,6 +7,7 @@ import com.alura.challengeBackEnd.exception.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +36,15 @@ public class VideosService {
     }
 
     public VideoDTO atualizaVideo(Long id, VideoDTO videoDTO) {
-        Video video = videosRepository.getReferenceById(id);
-        if (videoDTO.url() != null) video.setUrl(videoDTO.url());
-        if (videoDTO.descricao() != null) video.setDescricao(videoDTO.descricao());
-        if (videoDTO.titulo() != null) video.setTitulo(videoDTO.titulo());
-        return new VideoDTO(video);
+        try {
+            Video video = videosRepository.getReferenceById(id);
+            if (videoDTO.url() != null) video.setUrl(videoDTO.url());
+            if (videoDTO.descricao() != null) video.setDescricao(videoDTO.descricao());
+            if (videoDTO.titulo() != null) video.setTitulo(videoDTO.titulo());
+            return new VideoDTO(video);
+        } catch (EntityNotFoundException e) {
+            throw new DataNotFoundException("Video não encontrado");
+        }
     }
 
     public void deletaVideoPorId(Long id) {
