@@ -2,14 +2,14 @@ package com.alura.challengeBackEnd.service;
 
 import com.alura.challengeBackEnd.domain.model.Video;
 import com.alura.challengeBackEnd.domain.repository.VideosRepository;
-import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import com.alura.challengeBackEnd.exception.DataNotFoundException;
+import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class VideosService {
@@ -21,9 +21,8 @@ public class VideosService {
         this.videosRepository = videosRepository;
     }
 
-    public List<VideoDTO> getVideos() {
-        return videosRepository.findAllByAtivoTrue()
-                .stream().map(VideoDTO::new).collect(Collectors.toList());
+    public Page<VideoDTO> getVideos(Pageable paginacao) {
+            return videosRepository.findAllByAtivoTrue(paginacao).map(VideoDTO::new);
     }
 
     public VideoDTO getVideosById(Long id) {
@@ -36,15 +35,14 @@ public class VideosService {
     }
 
     public VideoDTO atualizaVideo(Long id, VideoDTO videoDTO) {
-        try {
-            Video video = videosRepository.getReferenceById(id);
-            if (videoDTO.url() != null) video.setUrl(videoDTO.url());
-            if (videoDTO.descricao() != null) video.setDescricao(videoDTO.descricao());
-            if (videoDTO.titulo() != null) video.setTitulo(videoDTO.titulo());
-            return new VideoDTO(video);
-        } catch (EntityNotFoundException e) {
-            throw new DataNotFoundException("Video não encontrado");
+        Optional<Video> video = videosRepository.findById(id);
+        if(video.isPresent()) {
+            if (videoDTO.url() != null) video.get().setUrl(videoDTO.url());
+            if (videoDTO.descricao() != null) video.get().setDescricao(videoDTO.descricao());
+            if (videoDTO.titulo() != null) video.get().setTitulo(videoDTO.titulo());
+            return new VideoDTO(video.get());
         }
+        else throw new DataNotFoundException("Video não encontrado");
     }
 
     public void deletaVideoPorId(Long id) {

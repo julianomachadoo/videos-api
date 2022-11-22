@@ -3,11 +3,13 @@ package com.alura.challengeBackEnd.rest.controller;
 import com.alura.challengeBackEnd.rest.dto.VideoDTO;
 import com.alura.challengeBackEnd.service.VideosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -20,8 +22,8 @@ public class VideosController {
 
     @GetMapping
     @ResponseStatus(OK)
-    public List<VideoDTO> getVideos() {
-        return videosService.getVideos();
+    public Page<VideoDTO> getVideos(@PageableDefault Pageable paginacao) {
+        return videosService.getVideos(paginacao);
     }
 
     @GetMapping("{id}")

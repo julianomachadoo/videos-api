@@ -5,11 +5,7 @@ import java.util.List;
 
 public class ApiErrors {
 
-    private List<String> errors;
-
-    public ApiErrors(List<String> errors) {
-        this.errors = errors;
-    }
+    private final List<String> errors;
 
     public ApiErrors(String mensagemErro) {
         this.errors = Collections.singletonList(mensagemErro);
