@@ -3,3 +3,8 @@ INSERT INTO VIDEO(titulo, descricao, url) VALUES('Teste2', 'Descrição de teste
 INSERT INTO VIDEO(titulo, descricao, url) VALUES('Teste3', 'Descrição de teste 3', 'https://www.youtube.com/watch?v=FYNL6XHO5ZQ&ab_channel=MeteoroBrasil');
 
 UPDATE VIDEO SET ATIVO = 1;
+
+INSERT INTO CATEGORIA(titulo, cor) VALUES('Livre', 'BRANCA');
+INSERT INTO CATEGORIA(titulo, cor) VALUES('Musica', 'PRETO');
+INSERT INTO CATEGORIA(titulo, cor) VALUES('Jogos', 'AMARELO');
+
